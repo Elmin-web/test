@@ -26,7 +26,6 @@ async function fetchData() {
 }
 // delte items
 async function deleteItem(e, id) {
-  console.log("delete work");
   e.stopPropagation();
   await fetch(url + "/" + id, {
     method: "DELETE",
@@ -47,8 +46,6 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
     name: inputFrom.value,
-    createdAt: Number(inputTo.value),
-    updatedAt: Number(inputAmount.value),
   };
   await postData(data, e);
   await fetchData();
@@ -57,27 +54,30 @@ form.addEventListener("submit", async (e) => {
   inputAmount.value = "";
 });
 
-function putData(e, id) {
-  console.log(id);
-  fetch(url + "/" + id)
-    .then((res) => res.json())
-    .then((data) => {
-      modal.style.display = "flex";
-      modalInput.value = data.category.name;
-    });
-  modalBtn.addEventListener("click", async () => {
+async function putData(e, id) {
+  const res = await fetch(url + "/" + id);
+  const data = await res.json();
+  modal.style.display = "flex";
+  modalInput.value = data.category.name;
+  //   Önceki event listener'ı kaldır
+  // modalBtn.removeEventListener("click", putModalData);
+  // Yeni event listener'ı ekle
+  modalBtn.addEventListener("click", putModalData);
+  async function putModalData() {
     const data = {
       name: modalInput.value,
     };
-    modal.style.display = "none";
-
+    console.log(data);
+    console.log(modalInput.value);
     await fetch(url + "/" + id, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
-    fetchData();
-  });
+    }).then(() => fetchData());
+    modal.style.display = "none";
+    // Yeni event listener'ı kaldır
+    modalBtn.removeEventListener("click", putModalData);
+  }
 }
