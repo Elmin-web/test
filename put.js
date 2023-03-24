@@ -4,7 +4,9 @@ async function putData(e, id) {
   modal.style.display = "flex";
   modalInput.value = data.category.name;
   modalBtn.addEventListener("click", putModalData);
+  modalInput.focus();
   async function putModalData(e) {
+    isModalSend = true;
     e.preventDefault();
     loader.style.display = "flex";
     const data = {
@@ -23,4 +25,10 @@ async function putData(e, id) {
     modalBtn.removeEventListener("click", putModalData);
   }
   loader.style.display = "none";
+  modal.addEventListener("click", (e) => {
+    if (e.target.classList.contains("overlay")) {
+      modalBtn.removeEventListener("click", putModalData);
+      modal.style.display = "none";
+    }
+  });
 }

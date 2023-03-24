@@ -9,3 +9,4 @@ const modalInput = document.querySelector(".modal input");
 const modalBtn = document.querySelector(".modal-btn");
 const url = `https://dependable-data-380220-h6ezabenkq-el.a.run.app/api/categories`;
 const loader = document.querySelector(".loader");
+let isModalSend = false;
