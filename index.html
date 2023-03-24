@@ -30,11 +30,20 @@
         </tr>
       </thead>
       <tbody></tbody>
-      <div class="modal">
-        <input type="text" value="" />
-        <button class="modal-btn">ok</button>
-      </div>
     </table>
-    <script src="./index.js"></script>
+    <div class="overlay">
+      <div class="modal">
+        <form>
+          <input type="text" value="" />
+          <button type="submit" class="modal-btn">change</button>
+        </form>
+      </div>
+    </div>
+    <div class="loader">LOADING...</div>
+    <script src="./constants.js"></script>
+    <script src="./post.js"></script>
+    <script src="./fetch.js"></script>
+    <script src="./put.js"></script>
+    <script src="./delete.js"></script>
   </body>
 </html>
